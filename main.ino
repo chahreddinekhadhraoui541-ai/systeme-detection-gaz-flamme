@@ -1,23 +1,24 @@
 void setup() {
-  pinMode(A0, INPUT);      // Capteur de gaz (analogique)
-  pinMode(2, INPUT);       // Capteur de flamme (numérique)
-  pinMode(3, OUTPUT);      // LED Rouge
-  pinMode(4, OUTPUT);      // LED Verte
-  pinMode(5, OUTPUT);      // Buzzer
+  pinMode(6, INPUT);  //flamme
+  pinMode(2, INPUT);  //gaz
+  pinMode(3, OUTPUT); //rouge
+  pinMode(4, OUTPUT); //vert
+  pinMode(5, OUTPUT); //buzzer
 }
 
 void loop() {
-  int fireValue = digitalRead(2);
-  int val = analogRead(A0);
+  digitalWrite(3, LOW);
+  digitalWrite(4, HIGH);
+  digitalWrite(5, LOW);
+  
+  int fireValue = digitalRead(6);
+  int val = digitalRead(2);
 
-  // Remarque : ajuster la valeur "400" selon la sensibilité de ton capteur de gaz
-  if ((fireValue == 0) || (val > 400)) {
-    // Danger détecté (gaz ou flamme)
+  if ((fireValue == 0) || (val == 0)){    // 🚨 Danger détecté (gaz ou flamme)
     digitalWrite(3, HIGH);
     digitalWrite(4, LOW);
     digitalWrite(5, HIGH);
-  } else {
-    // Normal / Sécurité
+  } else {                                // ✅ Sécurité
     digitalWrite(3, LOW);
     digitalWrite(4, HIGH);
     digitalWrite(5, LOW);
